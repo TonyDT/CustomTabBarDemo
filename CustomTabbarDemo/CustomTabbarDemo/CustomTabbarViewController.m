@@ -24,7 +24,12 @@
     self.tabBar.translucent = NO;
     UIImage *shadowImage = [UIImage imageWithColor:[UIColor colorWithRed:229 / 255.0f green:234 /255.0f blue:240 / 255.0f alpha:1.0]
                                               size:CGSizeMake(0.75f, 0.75f)];
-    [self.tabBar setShadowImage:shadowImage];
+    [self.tabBar setShadowImage:[UIImage imageWithColor:[UIColor clearColor]]];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.tabBar.bounds.size.width, 1)];
+    imageView.image = shadowImage;
+    [self.tabBar addSubview:imageView];
+    
     NSArray *tabBarImages = @[[UIImage imageNamed:@"tab_bar_vehicles"],
                               [UIImage imageNamed:@"tab_bar_community"],
                               [UIImage imageNamed:@"tab_bar_home"],
@@ -46,12 +51,33 @@
         viewController.tabBarItem.imageInsets = UIEdgeInsetsMake(-1, 0, 1, 0);
         viewController.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, -3);
         
+        if (i == 2) {
+            viewController.tabBarItem.enabled = NO;
+            viewController.tabBarItem.title = @"";
+            viewController.tabBarItem.image = nil;
+        }
+        
     }
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake([UIScreen mainScreen].bounds.size.width / 2 - 30, -10, 60, 60);
+    button.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [button setImage:[UIImage imageNamed:@"tab_bar_go"]
+            forState:UIControlStateNormal];
+    button.adjustsImageWhenHighlighted = false;
+    [self.tabBar addSubview:button];
+    [self.tabBar bringSubviewToFront:button];
+    [button addTarget:self
+               action:@selector(ridingButtonWasPressed:)
+     forControlEvents:UIControlEventTouchUpInside];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)ridingButtonWasPressed:(UIButton *)button {
+    NSLog(@"开始骑行");
 }
 
 
