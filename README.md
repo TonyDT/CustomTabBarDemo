@@ -4,7 +4,7 @@
 
 ####效果如下
 
-![](https://github.com/zfx5130/CustomTabBarDemo/master/demo.gif)
+![](https://github.com/zfx5130/CustomTabBarDemo/blob/master/demo.gif)
 
 
 ####参考资料
